@@ -1,0 +1,122 @@
+.page-encode-decode {
+	.page-encode,
+	.page-decode {
+		--font-size-1: 48px;
+		--font-size-2: 32px;
+		--font-size-3: 24px;
+
+		text-align: center;
+		
+		.uploader--invalid {
+			border: 1px solid red;
+		}
+		&__wrapper {
+			padding-bottom: calc(7.5vw + 50px);
+			position: relative;
+			z-index: 1;
+		}
+		&__main {
+			display: flex;
+			flex-direction: column;
+			width: 592px;
+			margin: auto;
+			max-width: 90%;
+		}
+		&__title {
+			font-size: var(--font-size-1);
+			font-weight: 900;
+			margin-bottom: 29px;
+		}
+		&__description {
+			font-size: var(--font-size-2);
+			font-weight: 400;
+			margin-bottom: 26px;
+		}
+		@mixin input-text {
+			font-size: var(--font-size-3);
+			padding: 20px;
+			border: 1px solid #515151;
+		}
+		&__image-input {
+			width: 100%;
+			padding: 4px;
+			font-size: var(--font-size-3);
+			font-weight: 400;
+			border-radius: 5px;
+			background-color: #d7d7d7;
+			margin-bottom: 29px;
+		}
+		&__text-input {
+			@include input-text();
+			margin-top: 16px;
+			height: 220px;
+			width: 100%;
+			max-width: 100%;
+			margin-bottom: 10px;
+		}
+		&__key-input {
+			@include input-text();
+			width: 100%;
+			margin-bottom: 28px;
+		}
+		&__btn-start {
+			color: white;
+			margin-left: auto;
+			font-size: var(--font-size-3);
+			font-weight: 700;
+			border-radius: 28px;
+			padding: 10px 70px;
+			background-image: linear-gradient(to right, #db0000, #6f0000);
+		}
+		&__result {
+			margin-top: 32px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			&__title {
+				font-size: var(--font-size-1);
+				font-weight: 300;
+				margin-bottom: 44px;
+			}
+			&__img {
+				width: 800px;
+				max-width: 80%;
+				margin-bottom: 35px;
+				background-color: #d7d7d7;
+				border-radius: 16px;
+			}
+			&__save {
+				border-radius: 27px;
+				border: 1px;
+				padding: 10px 70px;
+				font-weight: 700;
+				font-size: var(--font-size-3);
+				width: max-content;
+			}
+		}
+		&__img-bottom {
+			position: absolute;
+			width: 100%;
+			bottom: 0;
+			left: 0;
+		}
+		@media (max-width: 767.98px) {
+			--font-size-1: 36px;
+			--font-size-2: 26px;
+			--font-size-3: 22px;
+
+			&__description {
+				margin-top: 0;
+			}
+		}
+		@media (max-width: 575.98px) {
+			--font-size-1: 28px;
+			--font-size-2: 20px;
+			--font-size-3: 17px;
+
+			&__title {
+				margin-bottom: 16px;
+			}
+		}
+	}
+}

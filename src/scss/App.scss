@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:100,200,300,400,600,700,800,900,100italic,200italic,300italic,400italic,600italic,700italic,800italic,900italic');
+
+@import 'variable';
+
+@import 'components/navbar';
+@import 'components/layout';
+@import 'components/dropzone-image';
+
+@import 'index';
+
+@import 'pages/home';
+@import 'pages/encode-decode';
+@import 'pages/encode';
+@import 'pages/decode';

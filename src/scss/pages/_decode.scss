@@ -1,0 +1,14 @@
+.page-decode {
+	&__result {
+		&__message {
+			border: 1px solid;
+			padding: 8px;
+			color: black;
+			background-color: white;
+			width: 80%;
+		}
+	}
+	&__key-input {
+		margin-top: 16px;
+	}
+}
