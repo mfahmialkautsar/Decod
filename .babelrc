@@ -1,0 +1,14 @@
+{
+  "plugins": ["@babel/syntax-dynamic-import"],
+  "presets": [
+    [
+      "@babel/env",
+      {
+        "modules": false,
+        "useBuiltIns": "usage", // or "entry"
+        "corejs": 3
+      }
+    ],
+    ["@babel/react", { "runtime": "automatic" }]
+  ]
+}
