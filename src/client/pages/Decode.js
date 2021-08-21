@@ -17,7 +17,6 @@ function Decode() {
   // decode the image and display the contents if there is anything
   function decode() {
     const decryptKey = document.getElementById('decode-key').value;
-    console.log(decryptKey);
     const keyFail = 'Key is incorrect or there is nothing here.';
 
     // decode the message with the supplied key

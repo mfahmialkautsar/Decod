@@ -4,7 +4,6 @@
     [
       "@babel/env",
       {
-        "modules": false,
         "useBuiltIns": "usage", // or "entry"
         "corejs": 3
       }

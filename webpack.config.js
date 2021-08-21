@@ -1,48 +1,80 @@
-// Generated using webpack-cli https://github.com/webpack/webpack-cli
+const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const nodeExternals = require('webpack-node-externals');
 
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
-const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
-const CopyPlugin = require("copy-webpack-plugin");
+const isProduction = process.env.NODE_ENV == 'production';
+const stylesHandler = isProduction
+  ? MiniCssExtractPlugin.loader
+  : 'style-loader';
 
-const isProduction = process.env.NODE_ENV === "production";
-const stylesHandler = isProduction ?
-  MiniCssExtractPlugin.loader :
-  'style-loader';
-
-const config = {
+const sharedConfig = {
   mode: isProduction ? 'production' : 'development',
-  entry: "./src/index.js",
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
+};
+
+const browserConfig = {
+  ...sharedConfig,
+  entry: './src/client',
   output: {
-    path: path.resolve(__dirname, "build"),
-    publicPath: '/'
+    path: path.resolve(__dirname, 'build/client'),
+    publicPath: '/',
   },
-  devServer: {
-    open: true,
-    host: "localhost",
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: "public/index.html",
-      favicon: "public/favicon.svg"
-    }),
-    new NodePolyfillPlugin(),
-    new CopyPlugin({
-      patterns: [{
-        from: "public/static"
-      }]
-    })
-    // Add your plugins here
-    // Learn more about plugins from https://webpack.js.org/configuration/plugins/
-  ],
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/i,
         exclude: /node_modules/,
-        loader: "babel-loader",
+        loader: 'babel-loader',
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [stylesHandler, 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
+        type: 'asset',
+      },
+    ],
+  },
+  plugins: [
+    new NodePolyfillPlugin(),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: 'public',
+        },
+      ],
+    }),
+  ],
+};
+
+const serverConfig = {
+  ...sharedConfig,
+  entry: './bin/www',
+  target: 'node',
+  externals: [nodeExternals()],
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/i,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        options: {
+          presets: [
+            [
+              '@babel/env',
+              {
+                modules: 'commonjs',
+              },
+            ],
+          ],
+        },
       },
       {
         test: /\.(c|s[ac])ss$/i,
@@ -50,24 +82,29 @@ const config = {
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
-        type: "asset",
+        type: 'asset',
       },
-
-      // Add your rules for custom modules here
-      // Learn more about loaders from https://webpack.js.org/loaders/
     ],
   },
-  resolve: {
-    extensions: ['.js', '.jsx']
+  output: {
+    path: path.resolve(__dirname, 'build'),
+    publicPath: '/',
+    filename: 'index.js',
   },
+  plugins: [new CleanWebpackPlugin()],
 };
 
 module.exports = () => {
   if (isProduction) {
-    config.plugins.push(new MiniCssExtractPlugin());
-
-    config.plugins.push(new WorkboxWebpackPlugin.GenerateSW());
+    browserConfig.plugins.push(
+      new MiniCssExtractPlugin(),
+      new WorkboxWebpackPlugin.GenerateSW()
+    );
+    serverConfig.plugins.push(
+      new MiniCssExtractPlugin(),
+      new WorkboxWebpackPlugin.GenerateSW()
+    );
   }
 
-  return config;
+  return [browserConfig, serverConfig];
 };

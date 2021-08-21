@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Dropzone from 'react-dropzone';
+import { useLocation } from 'react-router-dom';
 
 export default function ImageDropzone({ setFiles, files, canvas, submit }) {
   const [inputMessage, setInputMessage] = useState('Add Image or Drag here');
+  const location = useLocation();
 
   useEffect(() => {
     if (submit) {
@@ -71,7 +73,7 @@ export default function ImageDropzone({ setFiles, files, canvas, submit }) {
     );
   };
 
-  const pathname = window.location.pathname.split('/');
+  const pathname = location.pathname.split('/');
   const currentPath = pathname[1].toLowerCase();
   const specificClass = `dropzone-image--${currentPath}`;
 

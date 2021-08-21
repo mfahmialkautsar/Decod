@@ -4,8 +4,12 @@ import './scss/App.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+// import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
+const state = window.__STATE__;
+delete window.__STATE__;
+
+ReactDOM.hydrate(
   <BrowserRouter>
     <App />
   </BrowserRouter>,
