@@ -1,14 +1,16 @@
+@use "sass:meta";
+@use 'variable';
+
 @import url('https://fonts.googleapis.com/css?family=Nunito:100,200,300,400,600,700,800,900,100italic,200italic,300italic,400italic,600italic,700italic,800italic,900italic');
 
-@import 'variable';
 
-@import 'components/navbar';
-@import 'components/layout';
-@import 'components/dropzone-image';
+@include meta.load-css('components/navbar');
+@include meta.load-css('components/layout');
+@include meta.load-css('components/dropzone-image');
 
-@import 'index';
+@include meta.load-css('index');
 
-@import 'pages/home';
-@import 'pages/encode-decode';
-@import 'pages/encode';
-@import 'pages/decode';
+@include meta.load-css('pages/home');
+@include meta.load-css('pages/encode-decode');
+@include meta.load-css('pages/encode');
+@include meta.load-css('pages/decode');

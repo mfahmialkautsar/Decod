@@ -1,7 +1,9 @@
+@use "../variable";
+
 .layout-main {
 	min-height: 100vh;
 	&--decode {
-		background-color: $color-primary;
+		background-color: variable.$color-primary;
 		color: white;
 	}
 }
