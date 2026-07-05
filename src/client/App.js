@@ -1,20 +1,18 @@
-import { Route } from 'react-router';
-import { Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router';
 import routes from './routes';
 
 function App() {
   return (
-    <Switch>
-      {routes.map(({ path, exact, component: C }) => (
+    <Routes>
+      {routes.map(({ path, component: C }) => (
         <Route
           key={path}
           path={path}
-          exact={exact}
-          render={(props) => <C {...props} />}
+          element={<C />}
         />
       ))}
-      <Route path="*">Not Found</Route>
-    </Switch>
+      <Route path="*" element={<div>Not Found</div>} />
+    </Routes>
   );
 }
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Dropzone from 'react-dropzone';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 export default function ImageDropzone({ setFiles, files, canvas, submit }) {
   const [inputMessage, setInputMessage] = useState('Add Image or Drag here');

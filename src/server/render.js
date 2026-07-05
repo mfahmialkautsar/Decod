@@ -1,10 +1,10 @@
-import { StaticRouter } from 'react-router-dom';
+import { StaticRouter } from 'react-router';
 import App from '../client/App';
 const { renderToString } = require('react-dom/server');
 
-const render = (location, routerContext) => {
+const render = (location) => {
   const content = renderToString(
-    <StaticRouter location={location} context={routerContext}>
+    <StaticRouter location={location}>
       <App />
     </StaticRouter>
   );

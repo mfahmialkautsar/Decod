@@ -9,11 +9,9 @@ const template = require('../template');
 router.use(express.static(path.resolve('build/client')));
 
 /* GET home page. */
-router.get('*', (req, res) => {
-  const routerContext = {};
-  const { content } = render(req.url, routerContext);
+router.get(/.*/, (req, res) => {
+  const { content } = render(req.url);
   const response = template('Decod', {}, content);
-  if (routerContext.url) return res.redirect(301, routerContext.url);
   res.send(response);
 });
 
